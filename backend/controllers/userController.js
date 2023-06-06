@@ -85,14 +85,43 @@ const logoutUser = asyncHandler(async (req, res) => {
 // route get api/users/profile
 // access private
 const getUser = asyncHandler(async (req, res) => {
-  res.send("Profile of User");
+  // get user details from req.user
+  const {name,email}=req.user
+  // send response
+  res.json({
+    name,
+    email
+  })
 });
 
 // @desc update user profile
 // route put api/users/profile
 // access private
 const updateUser = asyncHandler(async (req, res) => {
-  res.send("Profile Update");
+  // get user details from req.user
+  const user=req.user
+ 
+  // if name and email is present then update user
+  if(req.body.name || req.body.email|| req.body.password){
+    user.name=req.body.name||user.name
+    user.email=req.body.email||user.email
+
+    if(req.body.password){
+      user.password=req.body.password
+    }
+    // save user
+    await user.save()
+    // send response
+
+    res.json({
+      name:user.name,
+      email:user.email
+    })
+
+  }else{
+    res.status(404)
+    throw new Error("User not found")
+  }
 });
 
 export { authUser, registerUser, logoutUser, getUser, updateUser };
