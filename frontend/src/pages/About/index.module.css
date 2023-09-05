@@ -1,0 +1,17 @@
+.container{
+    background-color: rgb(148, 148, 166);
+    height: 400px;
+    width: 400px;
+    margin: 20px;
+    overflow: scroll;
+    word-break: break-all;
+    padding: 10px;
+    position: relative;
+}
+
+.container button{
+    width: 100px;
+    height: 30px;
+    font-size: 5px;
+    margin: 0px;
+}
